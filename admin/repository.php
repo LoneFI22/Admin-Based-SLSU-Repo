@@ -55,9 +55,37 @@ if(!isset($_SESSION['admin_id'])){
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                    <button class="mb-3 btn bg-primary btn-sm align-items-center" onclick="window.location.href='upload.php'">
+                <button class="mb-3 btn bg-primary btn-sm align-items-center" data-toggle="modal" data-target="#uploadModal">
                     <span class="info-box-text">Upload File</span>
-                    </button>
+                </button>
+                <!-- Upload Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <h5 class="modal-title" id="uploadModalLabel">Upload File</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <form action="upload.php" method="POST" enctype="multipart/form-data">
+
+            <div class="modal-body">
+              <!-- Form fields for file uploads -->
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  
+              <button type="submit" name="uploadBtn" class="btn btn-primary">Upload File</button>
+            </div>
+
+          </form>
+
+        </div>
+     </div>
+    </div>
                     <div class="row">
                     
                         <div class="col-12">
