@@ -1,7 +1,7 @@
 <?php
 $servername = 'localhost';
 $name = 'root';
-$pass = 'root';
+$pass = '';
 $dbname = 'slsu_repo_db';
 
 $conn = new mysqli($servername,$name,$pass,$dbname);

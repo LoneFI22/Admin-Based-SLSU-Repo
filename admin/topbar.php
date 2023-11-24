@@ -15,7 +15,7 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item btn btn-primary" href="#">Portfolio</a></li>
+                <li><a class="dropdown-item btn btn-primary" href="profile.php">Portfolio</a></li>
                 <li><a class="dropdown-item btn btn-danger" href="logout.php">Logout</a></li>
             </ul>
         </div>
