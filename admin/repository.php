@@ -14,6 +14,9 @@ if(!isset($_SESSION['admin_id'])){
     <title>Repository</title>
     <?php include 'header.php'; ?>
     <style>
+        .backgr{
+            background: linear-gradient(289deg, #bdc4ef, #e6c9c9);
+        }
         .like{
             border: none;
             background: none;
@@ -36,7 +39,7 @@ if(!isset($_SESSION['admin_id'])){
         <?php include 'topbar.php';?>
         <?php include 'sidebar.php';?>
         <!-- Main Content of Repository -->
-        <div class="content-wrapper">
+        <div class="backgr content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2 text-center">

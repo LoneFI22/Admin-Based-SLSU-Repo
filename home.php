@@ -70,9 +70,9 @@ if(!isset($_SESSION['user_id'])){
 <body>
     <div class="please-no wrapper">
         <?php include 'navbar.php';?>
-        <div class="container-fluid pt-5">
-            <div class="row px-4">
-                <div class="main-content col-8 pb-5">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="main-content col-12 col-sm-6 col-md-8 mb-3">
                     <div class='card-header'>
                         <h3 class="card-title"><strong>Recent Documents</strong></h3>
                         <div class="card-tools">
@@ -104,13 +104,13 @@ if(!isset($_SESSION['user_id'])){
                         </table>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-md-4">
                     <div class="row">
                         <div class="col-12">
                             <div class="top-content mb-3">
                                 <p class='ps-3 pt-2'><strong>Top Rated Topics</strong></p>
                                 <div class="carousel slide" data-bs-ride='carousel' data-bs-interval="8000">
-                                    <div id='most-rated' class="carousel-inner">
+                                    <div id='most-rated' class="card carousel-inner">
                                         <!-- The data are fetch in ajax -->
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#most-rated" data-bs-slide="prev">
@@ -128,7 +128,7 @@ if(!isset($_SESSION['user_id'])){
                             <div class="most-dl-content mb-3">
                                 <p class='ps-3 pt-2'><strong>Most Downloaded</strong></p>
                                 <div class="carousel slide" data-bs-ride='carousel' data-bs-interval="8000">
-                                    <div id='most-dl' class="carousel-inner">
+                                    <div id='most-dl' class="card carousel-inner">
                                         <!-- The data are fetch in ajax -->
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#most-dl" data-bs-slide="prev">
@@ -213,17 +213,17 @@ if(!isset($_SESSION['user_id'])){
                         var topRateFile = '';
                         response.forEach(function(item, index){
                             if(index === 0){ // Check if it's the first item
-                                topRateFile += '<div class="carousel-item text-center active">';
-                                topRateFile += '<div class="carousel-box container-sm border rated-content">';
-                                topRateFile += '<h5>'+ item.file_name + '</h5>'; 
-                                topRateFile += '<p>'+ item.avg_rating + '</p>'; 
+                                topRateFile += '<div class="carousel-item active">';
+                                topRateFile += '<div class="d-flex flex-column justify-content-around align-items-center container-sm border rated-content">';
+                                topRateFile += '<h5 class="fontStyle">'+ item.file_name + '</h5>'; 
+                                topRateFile += '<span><span style="color: gold;"><i class="fa fa-regular fa-star"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ item.avg_rating + '</span>'; 
                                 topRateFile += '</div>';
                                 topRateFile += '</div>';
                             } else {
-                                topRateFile += '<div class="carousel-item text-center">';
-                                topRateFile += '<div class="carousel-box container-sm border rated-content">';
+                                topRateFile += '<div class="carousel-item">';
+                                topRateFile += '<div class="d-flex flex-column justify-content-around align-items-center container-sm border rated-content">';
                                 topRateFile += '<h5>'+ item.file_name + '</h5>'; 
-                                topRateFile += '<p>'+ item.avg_rating + '</p>'; 
+                                topRateFile += '<span><span style="color: gold;"><i class="fa fa-regular fa-star"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ item.avg_rating + '</span>'; 
                                 topRateFile += '</div>';
                                 topRateFile += '</div>';
                             }
@@ -233,7 +233,7 @@ if(!isset($_SESSION['user_id'])){
                 });
             }
             loadTopRatedFile();
-
+            
             //load the top download file content
             function loadTopDLFile(){
                 $.ajax({
@@ -246,16 +246,16 @@ if(!isset($_SESSION['user_id'])){
                         response.forEach(function(item, index){
                             if(index === 0){ // Check if it's the first item
                                 topFileDl += '<div class="carousel-item text-center active">';
-                                topFileDl += '<div class="carousel-box container-sm border rated-content">';
+                                topFileDl += '<div class="d-flex flex-column justify-content-around align-items-center container-sm border rated-content">';
                                 topFileDl += '<h5>'+ item.file_name + '</h5>'; 
-                                topFileDl += '<p>'+ item.download_count + '</p>'; 
+                                topFileDl += '<span><span style="color: blue;"><i class="fa fa-regular fa-download"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ item.download_count + '</span>'; 
                                 topFileDl += '</div>';
                                 topFileDl += '</div>';
                             } else {
                                 topFileDl += '<div class="carousel-item text-center">';
-                                topFileDl += '<div class="carousel-box container-sm border rated-content">';
+                                topFileDl += '<div class="d-flex flex-column justify-content-around align-items-center container-sm border rated-content">';
                                 topFileDl += '<h5>'+ item.file_name + '</h5>'; 
-                                topFileDl += '<p>'+ item.download_count + '</p>'; 
+                                topFileDl += '<span><span style="color: blue;"><i class="fa fa-regular fa-download"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ item.download_count + '</span>'; 
                                 topFileDl += '</div>';
                                 topFileDl += '</div>';
                             }

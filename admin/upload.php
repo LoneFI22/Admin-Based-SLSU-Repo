@@ -32,12 +32,17 @@ if(isset($_GET['id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Document</title>
     <?php include 'header.php';?>
+    <style>
+        .backgr{
+            background: linear-gradient(289deg, #bdc4ef, #e6c9c9);
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
         <?php include 'topbar.php';?>
         <?php include 'sidebar.php';?>
-        <div class="content-wrapper">
+        <div class="backgr content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2 text-center">

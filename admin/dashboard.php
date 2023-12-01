@@ -26,6 +26,9 @@ $countDownload = $action->totalDownloads();
     <title>Admin Dashboard</title>
     <?php include 'header.php'; ?>
     <style>
+        .backgr{
+            background: linear-gradient(289deg, #bdc4ef, #e6c9c9);
+        }
         canvas {
             max-width: 100%;
             height: auto;
@@ -39,7 +42,7 @@ $countDownload = $action->totalDownloads();
         <?php include 'topbar.php';?>
         <?php include 'sidebar.php';?>
 
-        <div class="content-wrapper">
+        <div class="backgr content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2 text-center">
@@ -89,7 +92,7 @@ $countDownload = $action->totalDownloads();
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-6 mt-2">
+                        <div class="col-12 col-sm-6 col-md-7 mt-2">
                             <div class="card card-dark">
                                 <div class="card-header">
                                     <h3 class="card-title">Download Graph</h3>
@@ -110,7 +113,7 @@ $countDownload = $action->totalDownloads();
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-3 mt-2">
+                        <div class="col-12 col-sm-4 col-md-5 mt-2">
                             <div class="card card-dark">
                                 <div class="card-header">
                                     <h3 class='card-title'>Recent Upload</h3>
@@ -225,17 +228,15 @@ $countDownload = $action->totalDownloads();
             const canvas = document.getElementById('downloadsChart');
             const parentWidth = canvas.parentElement.clientWidth;
 
-            canvas.style.height = '200px'; // Set initial height
+            canvas.style.height = '200px';
             canvas.style.width = parentWidth + 'px';
         }
 
-        // Call the function to create the chart when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             createChart();
-            adjustChartSize(); // Adjust chart size initially
+            adjustChartSize();
         });
 
-        // Adjust chart size when the window is resized
         window.addEventListener('resize', adjustChartSize);
     </script>
 </body>

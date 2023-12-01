@@ -8,8 +8,6 @@ if(isset($_GET['id'])){
     foreach($getUser as $User){
         $name = $User['name'];
         $phoneNumber = $User['phoneNumber'];
-        $course = $User['course'];
-        $year_level = $User['yr_level'];
         $email = $User['email'];
         $password = $User['password'];
     }
@@ -30,22 +28,13 @@ if(isset($_GET['id'])){
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header text-center">
-                            Update User
+                            Update Admin
                         </div>
-                        <div class="card-body row">
+                        <div class="card-body">
                             <input type="hidden" id="id" value="<?= $id ?>">
-                            <div class="form-group col-12">
+                            <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?= $name?>" required>
-                            </div>
-
-                            <div class="form-group col-6">
-                                <label for="course">Course</label>
-                                <input type="text" class="form-control" id="course" name="course" value="<?= $course?>" required>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="year_level">Year Level</label>
-                                <input type="text" class="form-control" id="year_level" name="year_level" value="<?= $year_level?>" required>
                             </div>
 
                             <div class="form-group">
@@ -74,8 +63,6 @@ if(isset($_GET['id'])){
                 $('.update').click(function(){
                     const id = $('#id').val();
                     const name = $('#name').val();
-                    const course = $('#course').val();
-                    const year_level = $('#year_level').val();
                     const email = $('#email').val();
                     const number = $('#number').val();
                     const password = $('#password').val();
@@ -84,7 +71,7 @@ if(isset($_GET['id'])){
                         type: 'POST',
                         url: 'jquery_admin.php',
                         dataType: 'json',
-                        data: { update_id:id, name:name, course:course, year_level:year_level, email:email, number:number, password:password},
+                        data: { update_admin_id:id, name:name, email:email, number:number, password:password},
                         success: function(response){
                             if(response == true){
                                 toastr.success('Update Successfully');

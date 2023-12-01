@@ -3,7 +3,7 @@
         <a class="d-flex align-items-center nav-brand" href="#" role="button" data-widget="pushmenu">
             <img src="https://cdn-icons-png.flaticon.com/512/3767/3767094.png" alt="" width="40" height="40">
             &nbsp;
-            <span class="fs-4">SLSU Repo</span>
+            <span class="fs-4" style='color: #fff;'>SLSU Repo</span>
         </a>
     </div>
     <div class="nav ms-auto">
@@ -11,7 +11,7 @@
             <a class="d-flex align-items-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://cdn-icons-png.flaticon.com/512/3767/3767094.png" alt="" width="32" height="32" class="rounded-circle">
                 &nbsp;
-                <span>Administrator</span>
+                <span style='color: #fff;'>Administrator</span>
             </a>
 
             <ul class="dropdown-menu">

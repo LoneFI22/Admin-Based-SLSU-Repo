@@ -68,24 +68,21 @@ class Admin{
     }
 
     //This function add user in the database
-    function addUser() {
+    function addUser($idNum,$name,$phoneNumber,$email,$status,$password) {
         session_start();
         $admin_id = $_SESSION['admin_id'];
         $qry = $this->db->query("SELECT id, name FROM info WHERE id_num = '$admin_id'")->fetch_assoc();
         $admin_name = $qry['name'];
         $admin_id = $qry['id'];
 
-        extract($_POST);
         //Inserting Data of the table info
         $sql = $this->db->query("INSERT INTO info (id_num,name,email,phoneNumber,status,password) VALUES ('$idNum','$name','$email','$phoneNumber','$status','$password')");
         $fetch = $this->db->query("SELECT id, name FROM info WHERE id_num = '$idNum'")->fetch_assoc();
         $id_num = $fetch['id'];
-        $sql2 = $this->db->query("INSERT INTO `profile`(`user_id`) VALUES ('$id_num')");
+        $sql2 = $this->db->query("INSERT INTO `profile`(`user_id`,`yr_level`,`course`,`about`,`image_path`) VALUES ('$id_num','','','','')");
         if ($sql && $sql2) {
             $qry = $this->db->query("INSERT INTO activity_logs (logs,user_id) VALUES('$admin_name is adding new user','$admin_id')");
             return true;
-        } else {
-            return false;
         }
     }
     
@@ -105,6 +102,29 @@ class Admin{
         $query2 = "UPDATE `profile` SET ".$data2." WHERE `user_id` = $user_id";
         
         if ($this->db->query($query) === TRUE && $this->db->query($query2)) {
+            $qry = $this->db->query("INSERT INTO activity_logs (logs,user_id) VALUES('$admin_name is updating the user $user','$admin_id')");
+            if($qry){
+                return true;
+            }
+        } else {
+            return false;
+        }
+
+    }
+
+    function updateAdmin($user_id,$name,$email,$number,$password){
+        session_start();
+        $admin_id = $_SESSION['admin_id'];
+        $qry = $this->db->query("SELECT id, name FROM info WHERE id_num = '$admin_id'")->fetch_assoc();
+        $admin_name = $qry['name'];
+        $admin_id = $qry['id'];
+        
+        $user = $this->db->query("SELECT name FROM info WHERE id = '$user_id'")->fetch_array()['name'];
+        
+        $data = " name = '$name' ".", email = '$email' ".", phoneNumber = '$number' ".", password = '$password' ";
+        $query = "UPDATE `info` SET ".$data." WHERE `id` = $user_id";
+        
+        if ($this->db->query($query) === TRUE) {
             $qry = $this->db->query("INSERT INTO activity_logs (logs,user_id) VALUES('$admin_name is updating the user $user','$admin_id')");
             if($qry){
                 return true;
@@ -163,7 +183,7 @@ class Admin{
     function getAllUser() {
         $data = array();
         // SQL query to retrieve data from the "info" table
-        $sql = "SELECT * FROM info";
+        $sql = "SELECT * FROM info ORDER BY date DESC";
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
@@ -185,11 +205,11 @@ class Admin{
                 echo '<td>' . $user['name'] . '</td>';
                 echo '<td>' . $user['phoneNumber'] . '</td>';
                 echo '<td>' . $user['email'] . '</td>';
-                echo '<td>' . date("F j, Y g:i A", strtotime($user['date'])) . '</td>';
                 echo '<td>' . $user['status'] . '</td>';
+                echo '<td>' . date("F j, Y g:i A", strtotime($user['date'])) . '</td>';
                 echo '<td>';
-                echo '<button class="btn btn-primary btn-sm" onclick="window.location.href=\'updateData.php?id=' . $user['id'] . '\'">Update</button>';
-                echo '<button class="btn btn-danger btn-sm" onclick="deleteUser(' . $user['id'] . ')">Delete</button>';
+                echo '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDatass" data-id="'. $user['id'] .'">View</button>&nbsp;&nbsp';
+                echo '<button class="delUser btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUser" data-id="'. $user['id'] .'">Delete</button>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -284,13 +304,13 @@ class Admin{
                     <td><?php if($action->getLikeVal($file['id']) == true){?>
                         <button class="like like-liked" data-id="<?= $file['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
                     <?php }else{?>
-                        <button class="like" data-id="<?= $fileData['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
+                        <button class="like" data-id="<?= $file['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
                     <?php }?>
                     </td>
                 <?php
                 echo '<td>';
-                echo '<button class="btn btn-primary btn-sm" onclick="window.location.href=\'download.php?=' . $file['id'] . '\'">Update</button>';
-                echo '<button class="btn btn-danger btn-sm" onclick="wind.ow.location.href=\'user.php?=id'. $file['id']. '\'">Delete</button>';
+                echo '<button class="btn btn-primary btn-sm" onclick="window.location.href=\'download.php?file=' . $file['id'] . '\'">Update</button>';
+                echo '<button class="delete-btn btn btn-danger btn-sm" data-id="'.$file['id'].'">Delete</button>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -442,12 +462,12 @@ class Admin{
     }
 
     function totalDownloads(){
-        $data;
+        $data = 0;
 
         $qry = $this->db->query("SELECT download_count FROM uploaded_files");
         if($qry->num_rows > 0){
             while($rows = $qry->fetch_assoc()){
-                $data += $rows['download_count'];
+                $data = $rows['download_count'];
             }
         }
         return $data;
