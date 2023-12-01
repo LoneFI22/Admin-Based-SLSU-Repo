@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_num']) && isset($_P
     $password = $_POST['password'];
 
     // Perform login authentication
-    $loginResult = $action->login($id_num, $password);
+    $loginResult = $action->login();
     
     echo $loginResult;
 }

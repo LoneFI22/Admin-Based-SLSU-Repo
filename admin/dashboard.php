@@ -228,17 +228,15 @@ $countDownload = $action->totalDownloads();
             const canvas = document.getElementById('downloadsChart');
             const parentWidth = canvas.parentElement.clientWidth;
 
-            canvas.style.height = '200px'; // Set initial height
+            canvas.style.height = '200px';
             canvas.style.width = parentWidth + 'px';
         }
 
-        // Call the function to create the chart when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             createChart();
-            adjustChartSize(); // Adjust chart size initially
+            adjustChartSize();
         });
 
-        // Adjust chart size when the window is resized
         window.addEventListener('resize', adjustChartSize);
     </script>
 </body>

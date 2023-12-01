@@ -304,13 +304,13 @@ class Admin{
                     <td><?php if($action->getLikeVal($file['id']) == true){?>
                         <button class="like like-liked" data-id="<?= $file['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
                     <?php }else{?>
-                        <button class="like" data-id="<?= $fileData['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
+                        <button class="like" data-id="<?= $file['id']?>"><i class="fa fa-regular fa-thumbs-up"></i></button>
                     <?php }?>
                     </td>
                 <?php
                 echo '<td>';
                 echo '<button class="btn btn-primary btn-sm" onclick="window.location.href=\'download.php?file=' . $file['id'] . '\'">Update</button>';
-                echo '<button class="delete-btn btn btn-danger btn-sm" data-id="'.$fileData['id'].'">Delete</button>';
+                echo '<button class="delete-btn btn btn-danger btn-sm" data-id="'.$file['id'].'">Delete</button>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -462,12 +462,12 @@ class Admin{
     }
 
     function totalDownloads(){
-        $data;
+        $data = 0;
 
         $qry = $this->db->query("SELECT download_count FROM uploaded_files");
         if($qry->num_rows > 0){
             while($rows = $qry->fetch_assoc()){
-                $data += $rows['download_count'];
+                $data = $rows['download_count'];
             }
         }
         return $data;
