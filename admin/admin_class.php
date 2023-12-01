@@ -310,7 +310,7 @@ class Admin{
                 <?php
                 echo '<td>';
                 echo '<button class="btn btn-primary btn-sm" onclick="window.location.href=\'download.php?file=' . $file['id'] . '\'">Update</button>';
-                echo '<button class="delete-btn btn btn-danger btn-sm" data-id="'.$fileData['id'].'">Delete</button>';
+                echo '<button class="delete-btn btn btn-danger btn-sm" data-id="'.$file['id'].'">Delete</button>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -462,12 +462,12 @@ class Admin{
     }
 
     function totalDownloads(){
-        $data;
+        $data = 0;
 
         $qry = $this->db->query("SELECT download_count FROM uploaded_files");
         if($qry->num_rows > 0){
             while($rows = $qry->fetch_assoc()){
-                $data += $rows['download_count'];
+                $data = $rows['download_count'];
             }
         }
         return $data;
