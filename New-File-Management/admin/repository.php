@@ -74,6 +74,11 @@ if(!$_SESSION['admin_id']){
         .borderpage{
             border-radius: 25px;
         }
+        .file-list-container {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
     </style>
 </head>
 <body>
@@ -95,8 +100,15 @@ if(!$_SESSION['admin_id']){
                                 <span class="icon-container"><i class="adduser bx bxs-plus-circle"></i></span>&nbsp;&nbsp;
                             </label>
                             <form id="fileUploadForm" method="post" enctype="multipart/form-data">
-                                <input type="file" name="fileDoc" id="adduser" accept=".doc, .docx, .pdf" style="display: none;">
-                                <button class="waves-effect waves-light btn" type="submit">Upload</button>
+                                <!-- Add onchange attribute to file input -->
+                            <input type="file" name="fileDoc" id="adduser" accept=".doc, .docx, .pdf" style="display: none;" onchange="handleFileSelection(this);">
+
+                            <!-- Add a span to display the selected file name -->
+                            <span id="selectedFileName" style="display: none;"></span>
+
+                            <!-- Modify the upload button to have an ID for easy access in JavaScript -->
+                            <button id="uploadButton" class="waves-effect waves-light btn" type="submit" style="display: none;">Upload</button>
+
                             </form>
                         </div>
                     </div>
@@ -107,11 +119,12 @@ if(!$_SESSION['admin_id']){
                         </div>
                     </div>
                 </div>
-            </div>
-            <ul style="margin-top: 10px;">
-                <div class="collapsible load_file row white" style="padding: 10px; border-radius: 20px;">
+                <div class="file-list-container">
 
-                </div>
+            <ul style="margin-top: 10px;">
+            <div class="collapsible load_file row white" style="padding: 10px; border-radius: 20px;"></div>
+           </ul>
+        </div>
             </ul>
             <?php include 'views/footer.php';?>
         </main>
@@ -271,6 +284,26 @@ if(!$_SESSION['admin_id']){
                 }
             });
         }
+      
+    function handleFileSelection(input) {
+        var fileName = input.files[0].name;
+        var uploadButton = document.getElementById("uploadButton");
+        var selectedFileName = document.getElementById("selectedFileName");
+
+        if (fileName) {
+            // Display the selected file name
+            selectedFileName.textContent = "Selected File: " + fileName;
+            selectedFileName.style.display = "inline-block";
+
+            // Show the upload button
+            uploadButton.style.display = "inline-block";
+        } else {
+            // Hide the selected file name and upload button if no file is selected
+            selectedFileName.style.display = "none";
+            uploadButton.style.display = "none";
+        }
+    }
+
     </script>
 </body>
 </html>
