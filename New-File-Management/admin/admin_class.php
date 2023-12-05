@@ -257,30 +257,41 @@ class Admin{
         session_start();
         $admin_id = $_SESSION['admin_id'];
         extract($_POST);
-
+    
         $qry = $this->db->query("SELECT id, name FROM info WHERE id_num = '$admin_id'")->fetch_assoc();
         $name = $qry['name'];
         $admin_id = $qry['id'];
-
-
+    
         $fileDirectory = '../assets/fileUpload/';
-        if($tmp_file != ''){
-            $fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['fileDoc']['name'];
+        
+        if ($tmp_file != '') {
+            $originalFileName = $_FILES['fileDoc']['name'];
+            
+            // Check if the file already exists
+            $counter = 1;
+            $fname = strtotime(date('y-m-d H:i')) . '_' . $originalFileName;
+    
+            while (file_exists($fileDirectory . $fname)) {
+                $pathInfo = pathinfo($originalFileName);
+                $fname = $pathInfo['filename'] . "($counter)." . $pathInfo['extension'];
+                $counter++;
+            }
+    
             $move = move_uploaded_file($tmp_file, $fileDirectory . $fname);
-
-            $file = $_FILES['fileDoc']['name']; 
-            $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-
-            if($move){
-                $query =("INSERT INTO `uploaded_files`(`file_name`, `file_type`, `file_path`, `download_count`) VALUES ('$file','$fileExtension','$fname', '0')");
+            $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+    
+            if ($move) {
+                $query = "INSERT INTO `uploaded_files`(`file_name`, `file_type`, `file_path`, `download_count`) VALUES ('$fname','$fileExtension','$fname', '0')";
                 $res = $this->db->query($query);
-                if($res){
-                    $qry = $this->db->query("INSERT INTO activity_logs (logs , user_id) VALUES ('$name is adding $file','$admin_id')");
+    
+                if ($res) {
+                    $qry = $this->db->query("INSERT INTO activity_logs (logs , user_id) VALUES ('$name is adding $fname','$admin_id')");
                     return 1;
                 }
             }
         }
     }
+    
     
     function deleteFile($id){
         session_start();

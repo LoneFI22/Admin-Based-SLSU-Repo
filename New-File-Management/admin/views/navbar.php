@@ -1,5 +1,4 @@
 <?php
-include '../admin_class.php';
 
 $action = new Admin();
 $id = $action->getId($_SESSION['admin_id']);
