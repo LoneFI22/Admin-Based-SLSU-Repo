@@ -285,25 +285,37 @@ if(!$_SESSION['admin_id']){
             });
         }
       
+        let fileCounter = 1;
+
     function handleFileSelection(input) {
-        var fileName = input.files[0].name;
-        var uploadButton = document.getElementById("uploadButton");
-        var selectedFileName = document.getElementById("selectedFileName");
+    const fileName = input.files[0].name;
+    const uploadButton = document.getElementById("uploadButton");
+    const selectedFileName = document.getElementById("selectedFileName");
 
-        if (fileName) {
-            // Display the selected file name
-            selectedFileName.textContent = "Selected File: " + fileName;
-            selectedFileName.style.display = "inline-block";
+    if (fileName) {
+        // Check if the filename already exists in the list
+        const existingFileNames = Array.from(document.querySelectorAll('.load_file p')).map(p => p.textContent);
 
-            // Show the upload button
-            uploadButton.style.display = "inline-block";
-        } else {
-            // Hide the selected file name and upload button if no file is selected
-            selectedFileName.style.display = "none";
-            uploadButton.style.display = "none";
+        let newFileName = fileName;
+
+        while (existingFileNames.includes(newFileName)) {
+            // If the filename already exists, add a numerical suffix
+            const dotIndex = fileName.lastIndexOf('.');
+            newFileName = `${fileName.slice(0, dotIndex)}(${fileCounter++})${fileName.slice(dotIndex)}`;
         }
-    }
 
+        // Display the selected file name
+        selectedFileName.textContent = "Selected File: " + newFileName;
+        selectedFileName.style.display = "inline-block";
+
+        // Show the upload button
+        uploadButton.style.display = "inline-block";
+    } else {
+        // Hide the selected file name and upload button if no file is selected
+        selectedFileName.style.display = "none";
+        uploadButton.style.display = "none";
+    }
+}
     </script>
 </body>
 </html>
